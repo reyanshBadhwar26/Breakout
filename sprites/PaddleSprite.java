@@ -9,11 +9,12 @@ public class PaddleSprite implements DisplayableSprite {
 	private Image paddle;
 	private double centerX = 0;
 	private double centerY = 0;
-	private double width = 160;
-	private double height = 90;
+	private double width = 120;
+	private double height = 50;
 	private boolean dispose = false;	
 
-	
+	private final double VELOCITY = 200;
+
 	public PaddleSprite(double centerX, double centerY) {
 		
 		this.centerX = centerX;
@@ -92,6 +93,24 @@ public class PaddleSprite implements DisplayableSprite {
 	@Override
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
 		
+		double velocityX = 0;
+		double velocityY = 0;
+		
+		//LEFT	
+		if (keyboard.keyDown(37)) {
+			velocityX = -VELOCITY;
+		}
+		// RIGHT
+		if (keyboard.keyDown(39)) {
+			velocityX += VELOCITY;
+		}
+
+		double deltaX = actual_delta_time * 0.001 * velocityX;
+        this.centerX += deltaX;
+		
+		double deltaY = actual_delta_time * 0.001 * velocityY;
+    	this.centerY += deltaY;
+
 	}
 
 }
