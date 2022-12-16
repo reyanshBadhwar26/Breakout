@@ -4,6 +4,7 @@ public class ShellUniverse implements Universe {
 
 	private boolean complete = false;	
 	private DisplayableSprite player1 = null;
+	private DisplayableSprite bullet = null;
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
 	private ArrayList<Background> backgrounds = new ArrayList<Background>();
 
@@ -13,6 +14,9 @@ public class ShellUniverse implements Universe {
 		this.setYCenter(0);
 		player1 = new PaddleSprite(0,200);
 		sprites.add(player1);
+		bullet = new BallSprite(0, 180);
+		sprites.add(bullet);
+		
 			
 	}
 
