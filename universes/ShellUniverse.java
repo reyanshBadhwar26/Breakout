@@ -7,16 +7,22 @@ public class ShellUniverse implements Universe {
 	private DisplayableSprite bullet = null;
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
 	private ArrayList<Background> backgrounds = new ArrayList<Background>();
-
+	private Background background;
+	
 	public ShellUniverse () {
 
 		this.setXCenter(0);
 		this.setYCenter(0);
-		player1 = new PaddleSprite(0,200);
+		player1 = new PaddleSprite(425,550);
 		sprites.add(player1);
-		bullet = new BallSprite(0, 180);
+		bullet = new BallSprite(425, 530);
 		sprites.add(bullet);
-		
+
+		background = new LevelOneBg();
+		ArrayList<DisplayableSprite> barriers = ((LevelOneBg)background).getBarriers();
+		sprites.addAll(barriers);
+		backgrounds =new ArrayList<Background>();
+		backgrounds.add(background);
 			
 	}
 
@@ -25,11 +31,11 @@ public class ShellUniverse implements Universe {
 	}
 
 	public double getXCenter() {
-		return 0;
+		return 425;
 	}
 
 	public double getYCenter() {
-		return 0;
+		return 325;
 	}
 
 	public void setXCenter(double xCenter) {
@@ -62,6 +68,7 @@ public class ShellUniverse implements Universe {
 		return false;
 	}		
 
+	
 	public void update(KeyboardInput keyboard, long actual_delta_time) {
 
 		if (keyboard.keyDownOnce(27)) {
@@ -77,7 +84,7 @@ public class ShellUniverse implements Universe {
 	}
 
 	public String toString() {
-		return "Breakout";
+		return "";
 	}
 
 }

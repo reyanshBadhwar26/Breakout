@@ -1,6 +1,7 @@
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -96,21 +97,54 @@ public class PaddleSprite implements DisplayableSprite {
 		double velocityX = 0;
 		double velocityY = 0;
 		
-		//LEFT	
-		if (keyboard.keyDown(37)) {
-			velocityX = -VELOCITY;
-		}
-		// RIGHT
-		if (keyboard.keyDown(39)) {
-			velocityX += VELOCITY;
-		}
-
 		double deltaX = actual_delta_time * 0.001 * velocityX;
-        this.centerX += deltaX;
-		
 		double deltaY = actual_delta_time * 0.001 * velocityY;
-    	this.centerY += deltaY;
+		
 
+	
+		if (checkCollisionWithBarrier(universe.getSprites(), deltaX, deltaY) == false) {
+			//LEFT ARROW
+			if (keyboard.keyDown(37)) {
+				velocityX = -VELOCITY;
+			}
+			//RIGHT ARROW
+			if (keyboard.keyDown(39)) {
+				velocityX += VELOCITY;
+			}
+		}
+		
+		else {
+			if (velocityX < 425 && keyboard.keyDown(39)) {
+				velocityX += VELOCITY;
+			}
+			
+			else if (velocityX > 425 && keyboard.keyDown(37)) {
+				velocityX = -VELOCITY;
+			}
+		}
+
+        this.centerX += actual_delta_time * 0.001 * velocityX;
+    	this.centerY += actual_delta_time * 0.001 * velocityY;
+
+	}
+	
+	private boolean checkCollisionWithBarrier(ArrayList<DisplayableSprite> sprites, double deltaX, double deltaY) {
+
+		//deltaX and deltaY represent the potential change in position
+		boolean colliding = false;
+
+		for (DisplayableSprite sprite : sprites) {
+			if (sprite instanceof BarrierSprite) {
+				if (CollisionDetection.overlaps(this.getMinX() + deltaX, this.getMinY() + deltaY, 
+						this.getMaxX()  + deltaX, this.getMaxY() + deltaY, 
+						sprite.getMinX(),sprite.getMinY(), 
+						sprite.getMaxX(), sprite.getMaxY())) {
+					colliding = true;
+					break;					
+				}
+			}
+		}		
+		return colliding;		
 	}
 
 }
