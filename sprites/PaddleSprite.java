@@ -10,8 +10,8 @@ public class PaddleSprite implements DisplayableSprite {
 	private Image paddle;
 	private double centerX = 0;
 	private double centerY = 0;
-	private double width = 120;
-	private double height = 50;
+	private double width = 0;
+	private double height = 0;
 	private boolean dispose = false;	
 
 	private final double VELOCITY = 200;
@@ -22,7 +22,9 @@ public class PaddleSprite implements DisplayableSprite {
 		this.centerY = centerY;
 		if (paddle == null) {
 			try {
-				paddle = ImageIO.read(new File("res/paddle.png"));
+				paddle = ImageIO.read(new File("res/paddle1.png"));
+				this.height = this.paddle.getHeight(null);
+				this.width = this.paddle.getWidth(null);
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -114,14 +116,14 @@ public class PaddleSprite implements DisplayableSprite {
 		}
 		
 		else {
-			if (velocityX < 425 && keyboard.keyDown(39)) {
+			if (this.centerX < 425 && keyboard.keyDown(39)) {
 				velocityX += VELOCITY;
-			}
-			
-			else if (velocityX > 425 && keyboard.keyDown(37)) {
+			}		
+			if (this.centerX  > 425 && keyboard.keyDown(37)) {
 				velocityX = -VELOCITY;
 			}
 		}
+
 
         this.centerX += actual_delta_time * 0.001 * velocityX;
     	this.centerY += actual_delta_time * 0.001 * velocityY;

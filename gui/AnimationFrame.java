@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Dialog.ModalityType;
 import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -16,6 +17,8 @@ public class AnimationFrame extends JFrame {
 	final public static int SCREEN_HEIGHT = 600;
 	final public static int SCREEN_WIDTH = 800;
 
+	private StartFrame titleFrame = null;
+	
 	private int screenCenterX = SCREEN_WIDTH / 2;
 	private int screenCenterY = SCREEN_HEIGHT / 2;
 
@@ -126,6 +129,9 @@ public class AnimationFrame extends JFrame {
 
 	public void start()
 	{
+		//hide interface
+		this.setVisible(false);
+
 		Thread thread = new Thread()
 		{
 			public void run()
@@ -136,6 +142,21 @@ public class AnimationFrame extends JFrame {
 		};
 
 		thread.start();
+		
+		//create a title frame
+		titleFrame = new StartFrame();
+		//center on the parent
+		titleFrame.setLocationRelativeTo(this);
+		//display title screen
+		//set the modality to APPLICATION_MODAL
+		titleFrame.setModalityType(ModalityType.APPLICATION_MODAL);
+		//by setting the dialog to visible, the application will start running the dialog
+		titleFrame.setVisible(true);
+		
+		//when title screen has been closed, execution will resume here.
+		titleFrame.dispose();
+		this.setVisible(true);
+		
 		System.out.println("main() complete");
 
 	}	
@@ -154,6 +175,16 @@ public class AnimationFrame extends JFrame {
 			this.logicalCenterX = universe.getXCenter();
 			this.logicalCenterY = universe.getYCenter();
 
+			//pause while title screen is displayed
+			while (titleFrame != null && titleFrame.isVisible() == true) {
+				Thread.yield();
+				try {
+					Thread.sleep(1);
+				}
+				catch(Exception e) {    					
+				} 				
+			}
+			
 			// main game loop
 			while (stop == false && universe.isComplete() == false) {
 

@@ -34,7 +34,7 @@ public class LevelOneBg implements Background{
 
 	public LevelOneBg() {
 	  	try {
-    		this.blueTile = ImageIO.read(new File("res/blueTile.png"));
+    		this.blueTile = ImageIO.read(new File("res/blue.png"));
     	}
     	catch (IOException e) {
     		//System.out.println(e.toString());
