@@ -14,7 +14,7 @@ public class PaddleSprite implements DisplayableSprite {
 	private double height = 0;
 	private boolean dispose = false;	
 
-	private final double VELOCITY = 200;
+	private final double VELOCITY = 500;
 
 	public PaddleSprite(double centerX, double centerY) {
 		
@@ -149,4 +149,8 @@ public class PaddleSprite implements DisplayableSprite {
 		return colliding;		
 	}
 
+	public double getVelocityX() {
+		return 0;
+	}
+	
 }
