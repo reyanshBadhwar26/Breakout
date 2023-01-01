@@ -198,7 +198,7 @@ public class CollisionDetection {
 
 	
 	public VirtualSprite calculate2DBounce(VirtualSprite bounce, DisplayableSprite sprite, ArrayList<DisplayableSprite> barriers, double velocityX, double velocityY, long actual_delta_time, Class type) {
-
+		
 		if (bounce == null) {
 			bounce = new VirtualSprite();
 		}

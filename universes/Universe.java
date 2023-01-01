@@ -25,6 +25,10 @@ public interface Universe {
 	public ArrayList<Background> getBackgrounds();		
 
 	public void update(KeyboardInput keyboard, long actual_delta_time);
+
+	public ArrayList<DisplayableSprite> getSpritesWithoutTiles();
+
+	public ArrayList<DisplayableSprite> getLowerBarriers();
     
 	
 }

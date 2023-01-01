@@ -21,7 +21,7 @@ public class TileSprite implements DisplayableSprite{
 			try {
 				tile = ImageIO.read(new File("res/orangeTile.png"));
 				this.height = 30;
-				this.width = 70;
+				this.width = 75;
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());

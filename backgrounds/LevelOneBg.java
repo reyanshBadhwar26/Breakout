@@ -27,7 +27,7 @@ public class LevelOneBg implements Background{
 		{0,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	0},
 		{0,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	0},
 		{0,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	0},
-		{0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
+		{3,	3,	3,	3,	3,	3,	3,	3,	3,	3,	3,	3,	3,	3,	3,	3,	3},
 
 
 };
@@ -53,7 +53,7 @@ public class LevelOneBg implements Background{
 		if (row < 0 || row > maxRows || col < 0 || col > maxCols || map[row][col] == 1) {
 			image = null;
 		}
-		else if (map[row][col] == 0) {
+		else if (map[row][col] == 0 || map[row][col] == 3) {
 			image = blueTile;
 		}
 		
@@ -132,5 +132,17 @@ public class LevelOneBg implements Background{
 			}
 		}
 		return barriers;
+	}
+	
+	public ArrayList<DisplayableSprite> getLowerBarrier(){
+		ArrayList<DisplayableSprite> lowerBarrier = new ArrayList<DisplayableSprite>();
+		for (int col = 0; col < map[0].length; col++) {
+			for (int row = 0; row < map.length; row++) {
+				if (map[row][col] == 3) {
+					lowerBarrier.add(new BarrierSprite(col * TILE_WIDTH, row * TILE_HEIGHT, (col + 1) * TILE_WIDTH, (row + 1) * TILE_HEIGHT, false));
+				}
+			}
+		}
+		return lowerBarrier;
 	}
 }

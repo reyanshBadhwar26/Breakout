@@ -1,6 +1,7 @@
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -136,10 +137,48 @@ public class BallSprite implements DisplayableSprite {
 		this.velocityY = velocityY;
 	}
 	
+	private void checkCollisionWithTile(ArrayList<DisplayableSprite> sprites) {
+
+		for (DisplayableSprite sprite : sprites) {
+			if (sprite instanceof TileSprite) {
+				if (CollisionDetection.overlaps(this.getMinX(), this.getMinY(), 
+						this.getMaxX(), this.getMaxY(), 
+						sprite.getMinX(),sprite.getMinY(), 
+						sprite.getMaxX(), sprite.getMaxY())) {					
+					sprite.setDispose(true);
+					
+				}
+			}
+		}			
+	}
+	
+	private boolean checkCollisionWithLowerBarrier(ArrayList<DisplayableSprite> sprites) {
+
+		//deltaX and deltaY represent the potential change in position
+		boolean colliding = false;
+
+		for (DisplayableSprite sprite : sprites) {
+				if (CollisionDetection.overlaps(this.getMinX(), this.getMinY(), 
+						this.getMaxX(), this.getMaxY(), 
+						sprite.getMinX(),sprite.getMinY(), 
+						sprite.getMaxX(), sprite.getMaxY())) {
+					colliding = true;
+					break;					
+				}
+			}	
+		return colliding;		
+	}
+	
 	@Override
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
 		
-		collisionDetection.calculate2DBounce(virtual, this, universe.getSprites(), velocityX, velocityY, actual_delta_time);
+		checkCollisionWithTile(universe.getSprites());
+		
+		if (checkCollisionWithLowerBarrier(universe.getLowerBarriers()) == true) {
+			this.setDispose(true);
+		}
+		
+		collisionDetection.calculate2DBounce(virtual, this, universe.getSpritesWithoutTiles(), velocityX, velocityY, actual_delta_time);
 		this.centerX = virtual.getCenterX();
 		this.centerY = virtual.getCenterY();
 		this.velocityX = virtual.getVelocityX();
