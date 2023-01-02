@@ -19,6 +19,7 @@ public interface Universe {
 	public void setComplete(boolean complete);
 	
 	public DisplayableSprite getPlayer1();
+
 	public boolean centerOnPlayer();
 
 	public ArrayList<DisplayableSprite> getSprites();	
@@ -29,6 +30,7 @@ public interface Universe {
 	public ArrayList<DisplayableSprite> getSpritesWithoutTiles();
 
 	public ArrayList<DisplayableSprite> getLowerBarriers();
-    
+	
+	public int getScore();
 	
 }

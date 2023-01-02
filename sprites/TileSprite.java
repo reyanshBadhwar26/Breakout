@@ -13,13 +13,13 @@ public class TileSprite implements DisplayableSprite{
 	private double height = 0;
 	private boolean dispose = false;	
 	
-	public TileSprite(double centerX, double centerY) {
+	public TileSprite(double centerX, double centerY, String tileName) {
 		this.centerX = centerX;
 		this.centerY = centerY;
 		
 		if (tile == null) {
 			try {
-				tile = ImageIO.read(new File("res/orangeTile.png"));
+				tile = ImageIO.read(new File(tileName));
 				this.height = 30;
 				this.width = 75;
 			}

@@ -5,6 +5,9 @@ public class ShellUniverse implements Universe {
 	private boolean complete = false;	
 	private DisplayableSprite player1 = null;
 	private DisplayableSprite ball = null;
+	private DisplayableSprite pinkTile = null;
+	private DisplayableSprite blueTile = null;
+	private DisplayableSprite greenTile = null;
 	private DisplayableSprite orangeTile = null;
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
 	private ArrayList<Background> backgrounds = new ArrayList<Background>();
@@ -38,15 +41,24 @@ public class ShellUniverse implements Universe {
 			
 		
 		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+75) {
-			orangeTile = new TileSprite(i, 100);
+			pinkTile = new TileSprite(i, 100, "res/pinkTile.png" );
+			sprites.add(pinkTile);
+		}
+		
+		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+75) {
+			blueTile = new TileSprite(i, 130, "res/blueTile.png");
+			sprites.add(blueTile);
+		}
+		
+		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+75) {
+			orangeTile = new TileSprite(i, 160, "res/orangeTile.png");
 			sprites.add(orangeTile);
 		}
 		
-//		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+75) {
-//			orangeTile = new TileSprite(i, 130);
-//			sprites.add(orangeTile);
-//		}
-
+		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+75) {
+			greenTile = new TileSprite(i, 190, "res/greenTile.png");
+			sprites.add(greenTile);
+		}
 
 	}
 
@@ -72,6 +84,10 @@ public class ShellUniverse implements Universe {
 		return complete;
 	}
 
+	public int getScore() {
+		return ((BallInterface)ball).getScore();
+	}
+	
 	public void setComplete(boolean complete) {
 		complete = true;
 	}
@@ -101,7 +117,7 @@ public class ShellUniverse implements Universe {
 	}
 	
 	public void update(KeyboardInput keyboard, long actual_delta_time) {
-
+		
 		if (keyboard.keyDownOnce(27)) {
 			complete = true;
 		}
@@ -112,6 +128,7 @@ public class ShellUniverse implements Universe {
     	} 
 		
 		disposeSprites();
+		
 	}
 
 	public String toString() {
@@ -134,7 +151,6 @@ public class ShellUniverse implements Universe {
 		for (int i = 0; i < disposalList.size(); i++) {
 			DisplayableSprite sprite = disposalList.get(i);
 			sprites.remove(sprite);
-			System.out.println("Remove: " + sprite.toString());
     	}
 		
 		//clear disposal list if necessary

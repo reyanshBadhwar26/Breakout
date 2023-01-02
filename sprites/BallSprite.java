@@ -5,14 +5,15 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public class BallSprite implements DisplayableSprite {
+public class BallSprite implements DisplayableSprite , BallInterface{
 
 	private Image ball;
 	private double centerX = 0;
 	private double centerY = 0;
 	private double width = 40;
 	private double height = 40;
-	private boolean dispose = false;	
+	private boolean dispose = false;
+	private int score = 0;
 
 	//PIXELS PER SECOND PER SECOND
 	private double accelerationX = 0;
@@ -137,55 +138,60 @@ public class BallSprite implements DisplayableSprite {
 		this.velocityY = velocityY;
 	}
 	
-	private void checkCollisionWithTile(ArrayList<DisplayableSprite> sprites) {
+	private void checkCollisionWithTile(ArrayList<DisplayableSprite> sprites, long actual_delta_time) {
 
 		for (DisplayableSprite sprite : sprites) {
 			if (sprite instanceof TileSprite) {
 				if (CollisionDetection.overlaps(this.getMinX(), this.getMinY(), 
 						this.getMaxX(), this.getMaxY(), 
 						sprite.getMinX(),sprite.getMinY(), 
-						sprite.getMaxX(), sprite.getMaxY())) {					
+						sprite.getMaxX(), sprite.getMaxY())) {
+					check2DBounce(sprites, actual_delta_time);
 					sprite.setDispose(true);
-					
+					score += 20;
+					break;
 				}
 			}
 		}			
 	}
 	
-	private boolean checkCollisionWithLowerBarrier(ArrayList<DisplayableSprite> sprites) {
-
-		//deltaX and deltaY represent the potential change in position
-		boolean colliding = false;
+	private void checkCollisionWithLowerBarrier(ArrayList<DisplayableSprite> sprites) {
 
 		for (DisplayableSprite sprite : sprites) {
 				if (CollisionDetection.overlaps(this.getMinX(), this.getMinY(), 
 						this.getMaxX(), this.getMaxY(), 
 						sprite.getMinX(),sprite.getMinY(), 
 						sprite.getMaxX(), sprite.getMaxY())) {
-					colliding = true;
+					this.setDispose(true);
 					break;					
 				}
 			}	
-		return colliding;		
+	}
+	
+	public void check2DBounce(ArrayList<DisplayableSprite> sprites, long actual_delta_time) {
+		
+		collisionDetection.calculate2DBounce(virtual, this, sprites, velocityX, velocityY, actual_delta_time);
+		this.centerX = virtual.getCenterX();
+		this.centerY = virtual.getCenterY();
+		this.velocityX = virtual.getVelocityX();
+		this.velocityY = virtual.getVelocityY() - 3;			
+		this.velocityX = this.velocityX + accelerationX * 0.01 * actual_delta_time;
+		this.velocityY = this.velocityY + accelerationY * 0.01 * actual_delta_time;
+
+	}
+	
+	public int getScore() {
+		return score;
 	}
 	
 	@Override
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
 		
-		checkCollisionWithTile(universe.getSprites());
+		checkCollisionWithTile(universe.getSprites(), actual_delta_time);
 		
-		if (checkCollisionWithLowerBarrier(universe.getLowerBarriers()) == true) {
-			this.setDispose(true);
-		}
-		
-		collisionDetection.calculate2DBounce(virtual, this, universe.getSpritesWithoutTiles(), velocityX, velocityY, actual_delta_time);
-		this.centerX = virtual.getCenterX();
-		this.centerY = virtual.getCenterY();
-		this.velocityX = virtual.getVelocityX();
-		this.velocityY = virtual.getVelocityY();			
+		checkCollisionWithLowerBarrier(universe.getLowerBarriers());
 
-		this.velocityX = this.velocityX + accelerationX * 0.001 * actual_delta_time;
-		this.velocityY = this.velocityY + accelerationY * 0.001 * actual_delta_time;
+		check2DBounce(universe.getSpritesWithoutTiles(), actual_delta_time);
 	}
 
 }

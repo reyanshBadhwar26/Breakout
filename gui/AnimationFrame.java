@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.Dialog.ModalityType;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
@@ -237,7 +238,7 @@ public class AnimationFrame extends JFrame {
 
 	private void updateControls() {
 		
-		this.lblTop.setText(String.format("Time: %9.3f;  centerX: %5d; centerY: %5d;  scale: %3.3f", elapsed_time / 1000.0, screenCenterX, screenCenterY, scale));
+		this.lblTop.setText(String.format("Time: %9.3f;  Score: %5d; Lives: %5d;  Level: %5d", elapsed_time / 1000.0, universe.getScore(), screenCenterY, screenCenterX));
 		this.lblBottom.setText(Integer.toString(universeLevel));
 		if (universe != null) {
 			this.lblBottom.setText(universe.toString());
@@ -315,20 +316,21 @@ public class AnimationFrame extends JFrame {
 			}
 
 			if (sprites != null) {
-				for (DisplayableSprite activeSprite : sprites) {
-					DisplayableSprite sprite = activeSprite;
-					if (sprite.getVisible()) {
-						if (sprite.getImage() != null) {
-							g.drawImage(sprite.getImage(), translateToScreenX(sprite.getMinX()), translateToScreenY(sprite.getMinY()), scaleLogicalX(sprite.getWidth()), scaleLogicalY(sprite.getHeight()), null);
-						}
-						else {
-							g.setColor(Color.BLUE);
-							g.fillRect(translateToScreenX(sprite.getMinX()), translateToScreenY(sprite.getMinY()), scaleLogicalX(sprite.getWidth()), scaleLogicalY(sprite.getHeight()));
+				//try {
+					for (DisplayableSprite activeSprite : sprites) {
+						DisplayableSprite sprite = activeSprite;
+						if (sprite.getVisible()) {
+							if (sprite.getImage() != null) {
+								g.drawImage(sprite.getImage(), translateToScreenX(sprite.getMinX()), translateToScreenY(sprite.getMinY()), scaleLogicalX(sprite.getWidth()), scaleLogicalY(sprite.getHeight()), null);
+							}
+							else {
+								g.setColor(Color.BLUE);
+								g.fillRect(translateToScreenX(sprite.getMinX()), translateToScreenY(sprite.getMinY()), scaleLogicalX(sprite.getWidth()), scaleLogicalY(sprite.getHeight()));
+							}
 						}
 					}
-				}				
+				} //catch (ConcurrentModificationException e) {}				
 			}
-		}
 		
 		private void paintBackground(Graphics g, Background background) {
 			
