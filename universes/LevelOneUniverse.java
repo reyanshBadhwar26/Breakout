@@ -31,7 +31,6 @@ public class LevelOneUniverse implements Universe {
 		spritesWithoutTile.add(player1);
 		ball = new BallSprite(425, 530, 200, 200);
 		sprites.add(ball);
-		spritesWithoutTile.add(ball);
 	
 		background = new AllLevelsBackground();
 		ArrayList<DisplayableSprite> barriers = ((AllLevelsBackground)background).getBarriers();
@@ -95,7 +94,6 @@ public class LevelOneUniverse implements Universe {
 	}
 	
 	public void setComplete(boolean complete) {
-		complete = true;
 	}
 
 	public ArrayList<DisplayableSprite> getLowerBarriers(){
@@ -127,6 +125,11 @@ public class LevelOneUniverse implements Universe {
 		if (keyboard.keyDownOnce(27)) {
 			complete = true;
 		}
+
+		if (lives == 0) {
+			complete = true;
+		}
+		
 		
 		for (int i = 0; i < sprites.size(); i++) {
 			DisplayableSprite sprite = sprites.get(i);
@@ -135,9 +138,10 @@ public class LevelOneUniverse implements Universe {
 		
 		if (ball.getDispose() == true && lives > 0) {
 				lives -= 1;
+//				ball.setDispose(true);
+//				disposeSprites();
 				ball = new BallSprite(player1.getCenterX(), player1.getCenterY()-50, 200, 200);
 				sprites.add(ball);
-				spritesWithoutTile.add(ball);
 		}
 		
 		disposeSprites();	

@@ -114,7 +114,7 @@ public class AnimationFrame extends JFrame {
 		lblTop = new JLabel("Time: ");
 		lblTop.setForeground(Color.WHITE);
 		lblTop.setFont(new Font("Consolas", Font.BOLD, 20));
-		lblTop.setBounds(16, 22, SCREEN_WIDTH - 16, 30);
+		lblTop.setBounds(32, 22, SCREEN_WIDTH - 32, 30);
 		getContentPane().add(lblTop);
 		getContentPane().setComponentZOrder(lblTop, 0);
 
@@ -238,7 +238,7 @@ public class AnimationFrame extends JFrame {
 
 	private void updateControls() {
 		
-		this.lblTop.setText(String.format("Time: %9.3f;  Score: %5d; Lives: %5d;  Level: %5d", elapsed_time / 1000.0, universe.getScore(), universe.getLives(), screenCenterX));
+		this.lblTop.setText(String.format("Time: %9.3f;  Score: %5d; Lives: %5d;  Level: %5d", elapsed_time / 1000.0, universe.getScore(), universe.getLives(), 1));
 		this.lblBottom.setText(Integer.toString(universeLevel));
 		if (universe != null) {
 			this.lblBottom.setText(universe.toString());
