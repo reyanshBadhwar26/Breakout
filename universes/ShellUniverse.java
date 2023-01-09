@@ -14,6 +14,8 @@ public class ShellUniverse implements Universe {
 	private ArrayList<DisplayableSprite> spritesWithoutTile = new ArrayList<DisplayableSprite>();
 	ArrayList<DisplayableSprite> lowerBarriers = new ArrayList<DisplayableSprite>();
 	private Background background;
+	private int lives = 5;
+	private int score = 0;
 	
 	public final double TILE_START_POINT = 88;
 	public final double TILE_STOP_POINT = 775;
@@ -31,9 +33,9 @@ public class ShellUniverse implements Universe {
 		sprites.add(ball);
 		spritesWithoutTile.add(ball);
 	
-		background = new LevelOneBg();
-		ArrayList<DisplayableSprite> barriers = ((LevelOneBg)background).getBarriers();
-		lowerBarriers = ((LevelOneBg)background).getLowerBarrier();
+		background = new AllLevelsBackground();
+		ArrayList<DisplayableSprite> barriers = ((AllLevelsBackground)background).getBarriers();
+		lowerBarriers = ((AllLevelsBackground)background).getLowerBarrier();
 		sprites.addAll(barriers);
 		spritesWithoutTile.addAll(barriers);
 		backgrounds = new ArrayList<Background>();
@@ -84,8 +86,12 @@ public class ShellUniverse implements Universe {
 		return complete;
 	}
 
+	public int getLives() {
+		return lives;
+	}
+	
 	public int getScore() {
-		return ((BallInterface)ball).getScore();
+		return score;
 	}
 	
 	public void setComplete(boolean complete) {
@@ -127,7 +133,16 @@ public class ShellUniverse implements Universe {
 			sprite.update(this, keyboard, actual_delta_time);
     	} 
 		
-		disposeSprites();
+//		if (ball.getDispose() == true) {
+//			if (lives > 0) {
+//				lives -= 1;
+//				ball = new BallSprite(425, 530, 200, 200);
+//				sprites.add(ball);
+//				spritesWithoutTile.add(ball);
+//			}
+//		}
+		
+		disposeSprites();	
 		
 	}
 
@@ -142,6 +157,9 @@ public class ShellUniverse implements Universe {
 		for (int i = 0; i < sprites.size(); i++) {
 			DisplayableSprite sprite = sprites.get(i);
     		if (sprite.getDispose() == true) {
+    			if (sprite instanceof TileSprite) {
+    				score += 20;
+    			}
     			disposalList.add(sprite);
     		}
     	}

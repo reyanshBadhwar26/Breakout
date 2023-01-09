@@ -238,7 +238,7 @@ public class AnimationFrame extends JFrame {
 
 	private void updateControls() {
 		
-		this.lblTop.setText(String.format("Time: %9.3f;  Score: %5d; Lives: %5d;  Level: %5d", elapsed_time / 1000.0, universe.getScore(), screenCenterY, screenCenterX));
+		this.lblTop.setText(String.format("Time: %9.3f;  Score: %5d; Lives: %5d;  Level: %5d", elapsed_time / 1000.0, universe.getScore(), universe.getLives(), screenCenterX));
 		this.lblBottom.setText(Integer.toString(universeLevel));
 		if (universe != null) {
 			this.lblBottom.setText(universe.toString());
@@ -316,7 +316,7 @@ public class AnimationFrame extends JFrame {
 			}
 
 			if (sprites != null) {
-				//try {
+				try {
 					for (DisplayableSprite activeSprite : sprites) {
 						DisplayableSprite sprite = activeSprite;
 						if (sprite.getVisible()) {
@@ -329,8 +329,9 @@ public class AnimationFrame extends JFrame {
 							}
 						}
 					}
-				} //catch (ConcurrentModificationException e) {}				
+				} catch (ConcurrentModificationException e) {}				
 			}
+		}
 		
 		private void paintBackground(Graphics g, Background background) {
 			

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public class BallSprite implements DisplayableSprite , BallInterface{
+public class BallSprite implements DisplayableSprite{
 
 	private Image ball;
 	private double centerX = 0;
@@ -13,7 +13,6 @@ public class BallSprite implements DisplayableSprite , BallInterface{
 	private double width = 40;
 	private double height = 40;
 	private boolean dispose = false;
-	private int score = 0;
 
 	//PIXELS PER SECOND PER SECOND
 	private double accelerationX = 0;
@@ -148,7 +147,6 @@ public class BallSprite implements DisplayableSprite , BallInterface{
 						sprite.getMaxX(), sprite.getMaxY())) {
 					check2DBounce(sprites, actual_delta_time);
 					sprite.setDispose(true);
-					score += 20;
 					break;
 				}
 			}
@@ -178,10 +176,6 @@ public class BallSprite implements DisplayableSprite , BallInterface{
 		this.velocityX = this.velocityX + accelerationX * 0.01 * actual_delta_time;
 		this.velocityY = this.velocityY + accelerationY * 0.01 * actual_delta_time;
 
-	}
-	
-	public int getScore() {
-		return score;
 	}
 	
 	@Override

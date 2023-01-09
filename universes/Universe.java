@@ -33,4 +33,6 @@ public interface Universe {
 	
 	public int getScore();
 	
+	public int getLives();
+	
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public class LevelOneBg implements Background{
+public class AllLevelsBackground implements Background{
 
     protected static int TILE_WIDTH = 50;
     protected static int TILE_HEIGHT = 50;
@@ -32,7 +32,7 @@ public class LevelOneBg implements Background{
 
 };
 
-	public LevelOneBg() {
+	public AllLevelsBackground() {
 	  	try {
     		this.blueTile = ImageIO.read(new File("res/blue.png"));
     	}
