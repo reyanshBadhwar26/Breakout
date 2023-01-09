@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class ShellUniverse implements Universe {
+public class LevelOneUniverse implements Universe {
 
 	private boolean complete = false;	
 	private DisplayableSprite player1 = null;
@@ -22,7 +22,7 @@ public class ShellUniverse implements Universe {
 	
 	private ArrayList<DisplayableSprite> disposalList = new ArrayList<DisplayableSprite>();
 	
-	public ShellUniverse () {
+	public LevelOneUniverse () {
 
 		this.setXCenter(0);
 		this.setYCenter(0);
@@ -133,14 +133,12 @@ public class ShellUniverse implements Universe {
 			sprite.update(this, keyboard, actual_delta_time);
     	} 
 		
-//		if (ball.getDispose() == true) {
-//			if (lives > 0) {
-//				lives -= 1;
-//				ball = new BallSprite(425, 530, 200, 200);
-//				sprites.add(ball);
-//				spritesWithoutTile.add(ball);
-//			}
-//		}
+		if (ball.getDispose() == true && lives > 0) {
+				lives -= 1;
+				ball = new BallSprite(player1.getCenterX(), player1.getCenterY()-50, 200, 200);
+				sprites.add(ball);
+				spritesWithoutTile.add(ball);
+		}
 		
 		disposeSprites();	
 		
