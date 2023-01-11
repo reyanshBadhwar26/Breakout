@@ -272,7 +272,7 @@ public class CollisionDetection {
 						bounce.centerX = leadingEdge + (sprite.getWidth() / 2);
 						bounce.velocityX = (velocityX * bounceFactorX * -1);
 					}
-					System.out.println(ConsoleUtility.describeSpriteXY(barrier));
+					//System.out.println(ConsoleUtility.describeSpriteXY(barrier));
 				}
 				//y dimension
 				boolean willCollideY = overlaps(sprite, barrier, 0, movementY);
@@ -291,7 +291,7 @@ public class CollisionDetection {
 						bounce.centerY = leadingEdge + (sprite.getWidth() / 2);
 						bounce.velocityY = (velocityY * bounceFactorY * -1);
 					}
-					System.out.println(ConsoleUtility.describeSpriteXY(barrier));					
+					//System.out.println(ConsoleUtility.describeSpriteXY(barrier));					
 				}
 			}
 			//will not collide

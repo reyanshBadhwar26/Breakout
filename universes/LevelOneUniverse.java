@@ -130,18 +130,26 @@ public class LevelOneUniverse implements Universe {
 			complete = true;
 		}
 		
-		
 		for (int i = 0; i < sprites.size(); i++) {
 			DisplayableSprite sprite = sprites.get(i);
 			sprite.update(this, keyboard, actual_delta_time);
     	} 
 		
-		if (ball.getDispose() == true && lives > 0) {
-				lives -= 1;
-//				ball.setDispose(true);
-//				disposeSprites();
+		if (ball.getDispose() == true) {
+			
+			if (lives != 0) {
+				lives -=1;
+			}
+			
+			if (lives-1 >= 0) {
 				ball = new BallSprite(player1.getCenterX(), player1.getCenterY()-50, 200, 200);
 				sprites.add(ball);
+			}
+		}
+		
+		
+		if (ball.getDispose() == true && lives != 0) {
+			
 		}
 		
 		disposeSprites();	

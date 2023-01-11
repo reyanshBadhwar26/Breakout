@@ -19,6 +19,7 @@ public class AnimationFrame extends JFrame {
 	final public static int SCREEN_WIDTH = 800;
 
 	private StartFrame titleFrame = null;
+	private LostFrame allLivesLost = null;
 	
 	private int screenCenterX = SCREEN_WIDTH / 2;
 	private int screenCenterY = SCREEN_HEIGHT / 2;
@@ -158,12 +159,14 @@ public class AnimationFrame extends JFrame {
 		titleFrame.dispose();
 		this.setVisible(true);
 		
+
 		System.out.println("main() complete");
 
 	}	
 	private void animationLoop() {
 
 		universe = animation.getNextUniverse();
+		
 		universeLevel++;
 
 		while (stop == false && universe != null) {
@@ -215,6 +218,42 @@ public class AnimationFrame extends JFrame {
 
 				//UPDATE STATE
 				updateTime();
+				
+				if (universe.getLives() == 0) {
+					allLivesLost = new LostFrame();
+					allLivesLost.setLocationRelativeTo(this);
+					allLivesLost.setModalityType(ModalityType.APPLICATION_MODAL);
+					allLivesLost.setVisible(true);
+					
+					allLivesLost.dispose();
+					
+					universe = animation.restartUniverse(universeLevel);
+					sprites = universe.getSprites();
+					player1 = universe.getPlayer1();
+					backgrounds = universe.getBackgrounds();
+					centreOnPlayer = universe.centerOnPlayer();
+					this.scale = universe.getScale();
+					this.logicalCenterX = universe.getXCenter();
+					this.logicalCenterY = universe.getYCenter();
+				}
+				
+//				if (universe.getLives() == 0) {
+//					allLivesLost = new LostFrame();
+//					allLivesLost.setLocationRelativeTo(this);
+//					allLivesLost.setModalityType(ModalityType.APPLICATION_MODAL);
+//					allLivesLost.setVisible(true);
+//					
+//					allLivesLost.dispose();
+//					
+//					universe = animation.restartUniverse(universeLevel);
+//					sprites = universe.getSprites();
+//					player1 = universe.getPlayer1();
+//					backgrounds = universe.getBackgrounds();
+//					centreOnPlayer = universe.centerOnPlayer();
+//					this.scale = universe.getScale();
+//					this.logicalCenterX = universe.getXCenter();
+//					this.logicalCenterY = universe.getYCenter();
+//				}
 				
 				universe.update(keyboard, actual_delta_time);
 				updateControls();
