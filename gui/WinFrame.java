@@ -39,7 +39,7 @@ public class WinFrame extends JDialog {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblTitle = new JLabel("You cleared all tiles in %!");
+		JLabel lblTitle = new JLabel("You cleared all tiles!");
 		lblTitle.setForeground(Color.ORANGE);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setFont(new Font("Stencil", Font.ITALIC, 25));

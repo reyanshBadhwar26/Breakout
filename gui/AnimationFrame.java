@@ -20,6 +20,7 @@ public class AnimationFrame extends JFrame {
 
 	private StartFrame titleFrame = null;
 	private LostFrame allLivesLost = null;
+	private WinFrame levelFinished = null;
 	
 	private int screenCenterX = SCREEN_WIDTH / 2;
 	private int screenCenterY = SCREEN_HEIGHT / 2;
@@ -237,24 +238,7 @@ public class AnimationFrame extends JFrame {
 					this.logicalCenterY = universe.getYCenter();
 				}
 				
-//				if (universe.getLives() == 0) {
-//					allLivesLost = new LostFrame();
-//					allLivesLost.setLocationRelativeTo(this);
-//					allLivesLost.setModalityType(ModalityType.APPLICATION_MODAL);
-//					allLivesLost.setVisible(true);
-//					
-//					allLivesLost.dispose();
-//					
-//					universe = animation.restartUniverse(universeLevel);
-//					sprites = universe.getSprites();
-//					player1 = universe.getPlayer1();
-//					backgrounds = universe.getBackgrounds();
-//					centreOnPlayer = universe.centerOnPlayer();
-//					this.scale = universe.getScale();
-//					this.logicalCenterX = universe.getXCenter();
-//					this.logicalCenterY = universe.getYCenter();
-//				}
-				
+
 				universe.update(keyboard, actual_delta_time);
 				updateControls();
 
@@ -262,11 +246,27 @@ public class AnimationFrame extends JFrame {
 				this.logicalCenterX = universe.getXCenter();
 				this.logicalCenterY = universe.getYCenter();
 				this.repaint();
+				
+				if (universe.levelFinished() == true) {
+					levelFinished = new WinFrame();
+					levelFinished.setLocationRelativeTo(this);
+					levelFinished.setModalityType(ModalityType.APPLICATION_MODAL);
+					levelFinished.setVisible(true);
+					
+					levelFinished.dispose();
+					
+					universe = animation.getNextUniverse();
+					sprites = universe.getSprites();
+					player1 = universe.getPlayer1();
+					backgrounds = universe.getBackgrounds();
+					centreOnPlayer = universe.centerOnPlayer();
+					this.scale = universe.getScale();
+					this.logicalCenterX = universe.getXCenter();
+					this.logicalCenterY = universe.getYCenter();
+					keyboard.poll();
+					universeLevel++;
+				}
 			}
-
-			universe = animation.getNextUniverse();
-			keyboard.poll();
-
 		}
 
 		System.out.println("animation complete");
@@ -277,7 +277,7 @@ public class AnimationFrame extends JFrame {
 
 	private void updateControls() {
 		
-		this.lblTop.setText(String.format("Time: %9.3f;  Score: %5d; Lives: %5d;  Level: %5d", elapsed_time / 1000.0, universe.getScore(), universe.getLives(), 1));
+		this.lblTop.setText(String.format("Time: %9.3f;  Score: %5d; Lives: %5d;  Level: %5d", elapsed_time / 1000.0, universe.getScore(), universe.getLives(), universeLevel));
 		this.lblBottom.setText(Integer.toString(universeLevel));
 		if (universe != null) {
 			this.lblBottom.setText(universe.toString());

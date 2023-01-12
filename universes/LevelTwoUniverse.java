@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class LevelOneUniverse implements Universe {
+public class LevelTwoUniverse implements Universe {
 
 	private boolean complete = false;	
 	private DisplayableSprite player1 = null;
@@ -23,7 +23,7 @@ public class LevelOneUniverse implements Universe {
 	
 	private ArrayList<DisplayableSprite> disposalList = new ArrayList<DisplayableSprite>();
 	
-	public LevelOneUniverse () {
+	public LevelTwoUniverse () {
 
 		this.setXCenter(0);
 		this.setYCenter(0);
@@ -42,20 +42,20 @@ public class LevelOneUniverse implements Universe {
 		backgrounds.add(background);
 			
 		
-//		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
-//			pinkTile = new TileSprite(i, 100, "res/pinkTile.png" );
-//			sprites.add(pinkTile);
-//		}
-//		
-//		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
-//			blueTile = new TileSprite(i, 130, "res/blueTile.png");
-//			sprites.add(blueTile);
-//		}
-//		
-//		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
-//			orangeTile = new TileSprite(i, 160, "res/orangeTile.png");
-//			sprites.add(orangeTile);
-//		}
+		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
+			pinkTile = new TileSprite(i, 100, "res/pinkTile.png" );
+			sprites.add(pinkTile);
+		}
+		
+		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
+			blueTile = new TileSprite(i, 130, "res/blueTile.png");
+			sprites.add(blueTile);
+		}
+		
+		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
+			orangeTile = new TileSprite(i, 160, "res/orangeTile.png");
+			sprites.add(orangeTile);
+		}
 		
 		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
 			greenTile = new TileSprite(i, 190, "res/greenTile.png");

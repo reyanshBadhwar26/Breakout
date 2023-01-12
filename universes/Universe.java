@@ -34,5 +34,6 @@ public interface Universe {
 	public int getScore();
 	
 	public int getLives();
+	public boolean levelFinished();
 	
 }

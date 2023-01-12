@@ -40,16 +40,16 @@ public class LostFrame extends JDialog {
 		contentPane.setLayout(null);
 		
 		JLabel lblTitle = new JLabel("You lost all your lives!");
-		lblTitle.setForeground(Color.ORANGE);
+		lblTitle.setForeground(Color.BLACK);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setFont(new Font("Stencil", Font.ITALIC, 25));
+		lblTitle.setFont(new Font("Stencil", Font.PLAIN, 25));
 		lblTitle.setBounds(0, 32, 369, 61);
 		contentPane.add(lblTitle);
 		
 		JLabel lblPickup = new JLabel("Close Try");
 		lblPickup.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPickup.setForeground(Color.ORANGE);
-		lblPickup.setFont(new Font("Stencil", Font.ITALIC, 48));
+		lblPickup.setForeground(Color.BLACK);
+		lblPickup.setFont(new Font("Stencil", Font.PLAIN, 48));
 		lblPickup.setBounds(0, 87, 369, 61);
 		contentPane.add(lblPickup);
 		
