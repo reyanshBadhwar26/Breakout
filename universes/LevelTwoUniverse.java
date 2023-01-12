@@ -40,28 +40,36 @@ public class LevelTwoUniverse implements Universe {
 		spritesWithoutTile.addAll(barriers);
 		backgrounds = new ArrayList<Background>();
 		backgrounds.add(background);
-			
+	
+
+		orangeTile = new TileSprite(TILE_START_POINT+(TILE_WIDTH*5)-37.5, 70, "res/orangeTile.png" );
+		sprites.add(orangeTile);
 		
-		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
+		for (double i = TILE_START_POINT+(TILE_WIDTH*4); i <= TILE_STOP_POINT-(TILE_WIDTH*4); i = i+TILE_WIDTH) {
 			pinkTile = new TileSprite(i, 100, "res/pinkTile.png" );
 			sprites.add(pinkTile);
 		}
 		
-		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
+		for (double i = TILE_START_POINT+(TILE_WIDTH*3); i <= TILE_STOP_POINT-(TILE_WIDTH*3); i = i+TILE_WIDTH) {
 			blueTile = new TileSprite(i, 130, "res/blueTile.png");
 			sprites.add(blueTile);
 		}
 		
-		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
+		for (double i = TILE_START_POINT+(TILE_WIDTH*2); i <= TILE_STOP_POINT-(TILE_WIDTH*2); i = i+TILE_WIDTH) {
 			orangeTile = new TileSprite(i, 160, "res/orangeTile.png");
 			sprites.add(orangeTile);
 		}
 		
-		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
+		for (double i = TILE_START_POINT+TILE_WIDTH; i <= TILE_STOP_POINT-TILE_WIDTH; i = i+TILE_WIDTH) {
 			greenTile = new TileSprite(i, 190, "res/greenTile.png");
 			sprites.add(greenTile);
 		}
-
+		
+		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
+			blueTile = new TileSprite(i, 220, "res/blueTile.png");
+			sprites.add(blueTile);
+		}
+		
 	}
 
 	public double getScale() {

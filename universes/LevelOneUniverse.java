@@ -18,7 +18,7 @@ public class LevelOneUniverse implements Universe {
 	private int score = 0;
 	
 	public final double TILE_START_POINT = 88;
-	public final double TILE_STOP_POINT = 775;
+	public final double TILE_STOP_POINT = 160;
 	public final double TILE_WIDTH = 75;
 	
 	private ArrayList<DisplayableSprite> disposalList = new ArrayList<DisplayableSprite>();
@@ -42,20 +42,20 @@ public class LevelOneUniverse implements Universe {
 		backgrounds.add(background);
 			
 		
-//		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
-//			pinkTile = new TileSprite(i, 100, "res/pinkTile.png" );
-//			sprites.add(pinkTile);
-//		}
-//		
-//		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
-//			blueTile = new TileSprite(i, 130, "res/blueTile.png");
-//			sprites.add(blueTile);
-//		}
-//		
-//		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
-//			orangeTile = new TileSprite(i, 160, "res/orangeTile.png");
-//			sprites.add(orangeTile);
-//		}
+		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
+			pinkTile = new TileSprite(i, 100, "res/pinkTile.png" );
+			sprites.add(pinkTile);
+		}
+		
+		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
+			blueTile = new TileSprite(i, 130, "res/blueTile.png");
+			sprites.add(blueTile);
+		}
+		
+		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
+			orangeTile = new TileSprite(i, 160, "res/orangeTile.png");
+			sprites.add(orangeTile);
+		}
 		
 		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
 			greenTile = new TileSprite(i, 190, "res/greenTile.png");
