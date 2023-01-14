@@ -1,6 +1,7 @@
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -13,13 +14,13 @@ public class CoinSprite implements DisplayableSprite{
 	private double height = 0;
 	private boolean dispose = false;	
 	
-	public CoinSprite(double centerX, double centerY, String tileName) {
+	public CoinSprite(double centerX, double centerY) {
 		this.centerX = centerX;
 		this.centerY = centerY;
 		
 		if (coin == null) {
 			try {
-				coin = ImageIO.read(new File(tileName));
+				coin = ImageIO.read(new File("res/coin.png"));
 				this.height = 30;
 				this.width = 30;
 			}
@@ -88,12 +89,28 @@ public class CoinSprite implements DisplayableSprite{
 		this.dispose = dispose;
 	}
 
+	private void checkCollisionWithLowerBarrier(ArrayList<DisplayableSprite> sprites) {
+
+		for (DisplayableSprite sprite : sprites) {
+				if (CollisionDetection.overlaps(this.getMinX(), this.getMinY(), 
+						this.getMaxX(), this.getMaxY(), 
+						sprite.getMinX(),sprite.getMinY(), 
+						sprite.getMaxX(), sprite.getMaxY())) {
+					this.setDispose(true);
+					break;					
+				}
+			}	
+	}
+	
+	
 	@Override
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
 		
 		double velocityY = 0;
-		velocityY = velocityY + 600 * 0.04 * actual_delta_time;
+		velocityY = velocityY + 600 * 0.02 * actual_delta_time;
 		this.centerY += actual_delta_time * 0.001 * velocityY;
+		
+		checkCollisionWithLowerBarrier(universe.getSpritesWithoutTiles());
 	}
 
 }

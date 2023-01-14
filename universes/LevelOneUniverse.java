@@ -9,6 +9,7 @@ public class LevelOneUniverse implements Universe {
 	private DisplayableSprite blueTile = null;
 	private DisplayableSprite greenTile = null;
 	private DisplayableSprite orangeTile = null;
+//	private DisplayableSprite coinSprite = null;
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
 	private ArrayList<Background> backgrounds = new ArrayList<Background>();
 	private ArrayList<DisplayableSprite> spritesWithoutTile = new ArrayList<DisplayableSprite>();
@@ -41,6 +42,8 @@ public class LevelOneUniverse implements Universe {
 		backgrounds = new ArrayList<Background>();
 		backgrounds.add(background);
 			
+//		coinSprite = new CoinSprite(TILE_START_POINT+(TILE_WIDTH*5)-37.5, 90);
+//		sprites.add(coinSprite);
 		
 		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
 			pinkTile = new TileSprite(i, 100, "res/pinkTile.png" );

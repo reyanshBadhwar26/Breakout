@@ -9,6 +9,7 @@ public class LevelTwoUniverse implements Universe {
 	private DisplayableSprite blueTile = null;
 	private DisplayableSprite greenTile = null;
 	private DisplayableSprite orangeTile = null;
+//	private DisplayableSprite coinSprite = null;
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
 	private ArrayList<Background> backgrounds = new ArrayList<Background>();
 	private ArrayList<DisplayableSprite> spritesWithoutTile = new ArrayList<DisplayableSprite>();
@@ -41,32 +42,34 @@ public class LevelTwoUniverse implements Universe {
 		backgrounds = new ArrayList<Background>();
 		backgrounds.add(background);
 	
+//		coinSprite = new CoinSprite(TILE_START_POINT+(TILE_WIDTH*5)-37.5, 90);
+//		sprites.add(coinSprite);
 
-		orangeTile = new TileSprite(TILE_START_POINT+(TILE_WIDTH*5)-37.5, 70, "res/orangeTile.png" );
+		orangeTile = new TileSprite(TILE_START_POINT+(TILE_WIDTH*5)-37.5, 90, "res/orangeTile.png" );
 		sprites.add(orangeTile);
 		
 		for (double i = TILE_START_POINT+(TILE_WIDTH*4); i <= TILE_STOP_POINT-(TILE_WIDTH*4); i = i+TILE_WIDTH) {
-			pinkTile = new TileSprite(i, 100, "res/pinkTile.png" );
+			pinkTile = new TileSprite(i, 120, "res/pinkTile.png" );
 			sprites.add(pinkTile);
 		}
 		
 		for (double i = TILE_START_POINT+(TILE_WIDTH*3); i <= TILE_STOP_POINT-(TILE_WIDTH*3); i = i+TILE_WIDTH) {
-			blueTile = new TileSprite(i, 130, "res/blueTile.png");
+			blueTile = new TileSprite(i, 150, "res/blueTile.png");
 			sprites.add(blueTile);
 		}
 		
 		for (double i = TILE_START_POINT+(TILE_WIDTH*2); i <= TILE_STOP_POINT-(TILE_WIDTH*2); i = i+TILE_WIDTH) {
-			orangeTile = new TileSprite(i, 160, "res/orangeTile.png");
+			orangeTile = new TileSprite(i, 180, "res/orangeTile.png");
 			sprites.add(orangeTile);
 		}
 		
 		for (double i = TILE_START_POINT+TILE_WIDTH; i <= TILE_STOP_POINT-TILE_WIDTH; i = i+TILE_WIDTH) {
-			greenTile = new TileSprite(i, 190, "res/greenTile.png");
+			greenTile = new TileSprite(i, 210, "res/greenTile.png");
 			sprites.add(greenTile);
 		}
 		
 		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
-			blueTile = new TileSprite(i, 220, "res/blueTile.png");
+			blueTile = new TileSprite(i, 240, "res/blueTile.png");
 			sprites.add(blueTile);
 		}
 		
