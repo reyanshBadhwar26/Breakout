@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class LevelOneUniverse implements Universe {
 
@@ -9,17 +10,19 @@ public class LevelOneUniverse implements Universe {
 	private DisplayableSprite blueTile = null;
 	private DisplayableSprite greenTile = null;
 	private DisplayableSprite orangeTile = null;
-//	private DisplayableSprite coinSprite = null;
+	private DisplayableSprite coinSprite = null;
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
 	private ArrayList<Background> backgrounds = new ArrayList<Background>();
 	private ArrayList<DisplayableSprite> spritesWithoutTile = new ArrayList<DisplayableSprite>();
 	ArrayList<DisplayableSprite> lowerBarriers = new ArrayList<DisplayableSprite>();
+	private ArrayList<DisplayableSprite> tileSprites = new ArrayList<DisplayableSprite>();
 	private Background background;
 	private int lives = 5;
 	private int score = 0;
+	Random rand = new Random();
 	
 	public final double TILE_START_POINT = 88;
-	public final double TILE_STOP_POINT = 160;
+	public final double TILE_STOP_POINT = 775;
 	public final double TILE_WIDTH = 75;
 	
 	private ArrayList<DisplayableSprite> disposalList = new ArrayList<DisplayableSprite>();
@@ -47,23 +50,36 @@ public class LevelOneUniverse implements Universe {
 		
 		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
 			pinkTile = new TileSprite(i, 100, "res/pinkTile.png" );
-			sprites.add(pinkTile);
+		//	sprites.add(pinkTile);
+			tileSprites.add(pinkTile);
 		}
 		
 		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
 			blueTile = new TileSprite(i, 130, "res/blueTile.png");
-			sprites.add(blueTile);
+		//	sprites.add(blueTile);
+			tileSprites.add(blueTile);
 		}
 		
 		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
 			orangeTile = new TileSprite(i, 160, "res/orangeTile.png");
-			sprites.add(orangeTile);
+		//	sprites.add(orangeTile);
+			tileSprites.add(orangeTile);
 		}
 		
 		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
 			greenTile = new TileSprite(i, 190, "res/greenTile.png");
-			sprites.add(greenTile);
+		//	sprites.add(greenTile);
+			tileSprites.add(greenTile);
 		}
+
+
+
+		for(int i = 0; i <= 5; i ++) {
+			int randomTile = rand.nextInt(tileSprites.size());
+			tileSprites.set(randomTile, new ExceptionalTileSprite(tileSprites.get(randomTile).getCenterX(), tileSprites.get(randomTile).getCenterY(), "res/redTile.png"));
+		}
+
+		sprites.addAll(tileSprites);
 
 	}
 
@@ -166,10 +182,6 @@ public class LevelOneUniverse implements Universe {
 		}
 		
 		
-		if (ball.getDispose() == true && lives != 0) {
-			
-		}
-		
 		disposeSprites();	
 //		System.out.println(this.levelFinished());
 		
@@ -188,6 +200,13 @@ public class LevelOneUniverse implements Universe {
     		if (sprite.getDispose() == true) {
     			if (sprite instanceof TileSprite) {
     				score += 20;
+    			}
+    			if (sprite instanceof ExceptionalTileSprite){
+    				coinSprite = new CoinSprite(sprite.getCenterX(), sprite.getCenterY());
+    				sprites.add(coinSprite);
+    			}
+    			if (sprite instanceof CoinSprite) {
+    				score+=10;
     			}
     			disposalList.add(sprite);
     		}

@@ -140,7 +140,7 @@ public class BallSprite implements DisplayableSprite{
 	private void checkCollisionWithTile(ArrayList<DisplayableSprite> sprites, long actual_delta_time) {
 
 		for (DisplayableSprite sprite : sprites) {
-			if (sprite instanceof TileSprite) {
+			if (sprite instanceof TileSprite || sprite instanceof ExceptionalTileSprite) {
 				if (CollisionDetection.overlaps(this.getMinX(), this.getMinY(), 
 						this.getMaxX(), this.getMaxY(), 
 						sprite.getMinX(),sprite.getMinY(), 
