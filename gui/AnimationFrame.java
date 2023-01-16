@@ -248,7 +248,7 @@ public class AnimationFrame extends JFrame {
 				this.repaint();
 				
 				if (universe.levelFinished() == true) {
-					levelFinished = new WinFrame();
+					levelFinished = new WinFrame(universe.getScore());
 					levelFinished.setLocationRelativeTo(this);
 					levelFinished.setModalityType(ModalityType.APPLICATION_MODAL);
 					levelFinished.setVisible(true);

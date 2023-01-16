@@ -140,7 +140,7 @@ public class BallSprite implements DisplayableSprite{
 	private void checkCollisionWithTile(ArrayList<DisplayableSprite> sprites, long actual_delta_time) {
 
 		for (DisplayableSprite sprite : sprites) {
-			if (sprite instanceof TileSprite || sprite instanceof ExceptionalTileSprite) {
+			if (sprite instanceof TileSprite) {
 				if (CollisionDetection.overlaps(this.getMinX(), this.getMinY(), 
 						this.getMaxX(), this.getMaxY(), 
 						sprite.getMinX(),sprite.getMinY(), 
@@ -166,6 +166,25 @@ public class BallSprite implements DisplayableSprite{
 			}	
 	}
 	
+	private void checkCollisionWithExceptionalTile(ArrayList<DisplayableSprite> sprites, long actual_delta_time) {
+
+		for (DisplayableSprite sprite : sprites) {
+			if (sprite instanceof ExceptionalTileSprite) {
+				if (CollisionDetection.overlaps(this.getMinX(), this.getMinY(), 
+						this.getMaxX(), this.getMaxY(), 
+						sprite.getMinX(),sprite.getMinY(), 
+						sprite.getMaxX(), sprite.getMaxY())) {
+					check2DBounce(sprites, actual_delta_time);
+					((ExceptionalTileSprite) sprite).setLives(((ExceptionalTileSprite) sprite).getLives()-1);
+					if (((ExceptionalTileSprite) sprite).getLives() == 0) {
+						sprite.setDispose(true);
+					}
+					break;
+				}
+			}
+		}			
+	}
+	
 	public void check2DBounce(ArrayList<DisplayableSprite> sprites, long actual_delta_time) {
 		
 		collisionDetection.calculate2DBounce(virtual, this, sprites, velocityX, velocityY, actual_delta_time);
@@ -186,6 +205,8 @@ public class BallSprite implements DisplayableSprite{
 		checkCollisionWithLowerBarrier(universe.getLowerBarriers());
 
 		check2DBounce(universe.getSpritesWithoutTiles(), actual_delta_time);
+		
+		checkCollisionWithExceptionalTile(universe.getSprites(), actual_delta_time);
 	}
 
 }

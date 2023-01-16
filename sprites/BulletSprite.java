@@ -1,28 +1,28 @@
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public class ExceptionalTileSprite implements DisplayableSprite{
+public class BulletSprite implements DisplayableSprite{
 
-	private Image tile;
+	private Image coin;
 	private double centerX = 0;
 	private double centerY = 0;
 	private double width = 0;
 	private double height = 0;
 	private boolean dispose = false;	
-	private int lives = 2;
 	
-	public ExceptionalTileSprite(double centerX, double centerY, String tileName) {
+	public BulletSprite(double centerX, double centerY) {
 		this.centerX = centerX;
 		this.centerY = centerY;
 		
-		if (tile == null) {
+		if (coin == null) {
 			try {
-				tile = ImageIO.read(new File(tileName));
+				coin = ImageIO.read(new File("res/bullet.png"));
 				this.height = 30;
-				this.width = 75;
+				this.width = 30;
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -31,7 +31,7 @@ public class ExceptionalTileSprite implements DisplayableSprite{
 	}
 	@Override
 	public Image getImage() {
-		return tile;
+		return coin;
 	}
 
 	@Override
@@ -88,18 +88,29 @@ public class ExceptionalTileSprite implements DisplayableSprite{
 	public void setDispose(boolean dispose) {
 		this.dispose = dispose;
 	}
+
+	private void checkCollisionWithLowerBarrier(ArrayList<DisplayableSprite> sprites) {
+
+		for (DisplayableSprite sprite : sprites) {
+				if (CollisionDetection.overlaps(this.getMinX(), this.getMinY(), 
+						this.getMaxX(), this.getMaxY(), 
+						sprite.getMinX(),sprite.getMinY(), 
+						sprite.getMaxX(), sprite.getMaxY())) {
+					this.setDispose(true);
+					break;					
+				}
+			}	
+	}
 	
-	public void setLives(int lives) {
-		this.lives = lives;
-	}
-
-	public int getLives() {
-		return lives;
-	}
-
+	
 	@Override
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
 		
+		double velocityY = 0;
+		velocityY = velocityY + 600 * 0.02 * actual_delta_time;
+		this.centerY += actual_delta_time * 0.001 * velocityY;
+		
+		checkCollisionWithLowerBarrier(universe.getSpritesWithoutTiles());
 	}
 
 }

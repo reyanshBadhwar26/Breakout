@@ -4,14 +4,15 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class TileSprite implements DisplayableSprite{
+public class TileSprite implements DisplayableSprite, TileSprites{
 
 	private Image tile;
 	private double centerX = 0;
 	private double centerY = 0;
 	private double width = 0;
 	private double height = 0;
-	private boolean dispose = false;	
+	private boolean dispose = false;
+	private String color = "";
 	
 	public TileSprite(double centerX, double centerY, String tileName) {
 		this.centerX = centerX;
@@ -26,7 +27,9 @@ public class TileSprite implements DisplayableSprite{
 			catch (IOException e) {
 				System.out.println(e.toString());
 			}		
-		}	
+		}
+		
+		color = tileName;
 	}
 	@Override
 	public Image getImage() {
@@ -86,6 +89,10 @@ public class TileSprite implements DisplayableSprite{
 	@Override
 	public void setDispose(boolean dispose) {
 		this.dispose = dispose;
+	}
+	
+	public String getColor() {
+		return color;
 	}
 
 	@Override

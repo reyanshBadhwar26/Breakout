@@ -102,8 +102,7 @@ public class PaddleSprite implements DisplayableSprite {
 		double deltaX = actual_delta_time * 0.001 * velocityX;
 		double deltaY = actual_delta_time * 0.001 * velocityY;
 		
-
-	
+		
 		if (checkCollisionWithBarrier(universe.getSprites(), deltaX, deltaY) == false) {
 			//LEFT ARROW
 			if (keyboard.keyDown(37)) {
@@ -123,6 +122,7 @@ public class PaddleSprite implements DisplayableSprite {
 				velocityX = -VELOCITY;
 			}
 		}
+
 
 
         this.centerX += actual_delta_time * 0.001 * velocityX;
@@ -149,6 +149,7 @@ public class PaddleSprite implements DisplayableSprite {
 		return colliding;		
 	}
 
+	
 	public double getVelocityX() {
 		return 0;
 	}

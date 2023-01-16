@@ -11,6 +11,7 @@ public class LevelOneUniverse implements Universe {
 	private DisplayableSprite greenTile = null;
 	private DisplayableSprite orangeTile = null;
 	private DisplayableSprite coinSprite = null;
+	private DisplayableSprite bulletSprite = null;
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
 	private ArrayList<Background> backgrounds = new ArrayList<Background>();
 	private ArrayList<DisplayableSprite> spritesWithoutTile = new ArrayList<DisplayableSprite>();
@@ -44,9 +45,7 @@ public class LevelOneUniverse implements Universe {
 		spritesWithoutTile.addAll(barriers);
 		backgrounds = new ArrayList<Background>();
 		backgrounds.add(background);
-			
-//		coinSprite = new CoinSprite(TILE_START_POINT+(TILE_WIDTH*5)-37.5, 90);
-//		sprites.add(coinSprite);
+	
 		
 		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
 			pinkTile = new TileSprite(i, 100, "res/pinkTile.png" );
@@ -76,7 +75,10 @@ public class LevelOneUniverse implements Universe {
 
 		for(int i = 0; i <= 5; i ++) {
 			int randomTile = rand.nextInt(tileSprites.size());
-			tileSprites.set(randomTile, new ExceptionalTileSprite(tileSprites.get(randomTile).getCenterX(), tileSprites.get(randomTile).getCenterY(), "res/redTile.png"));
+			if (tileSprites.get(randomTile) instanceof ExceptionalTileSprite == false) {
+				tileSprites.set(randomTile, new ExceptionalTileSprite(tileSprites.get(randomTile).getCenterX(), tileSprites.get(randomTile).getCenterY(), ((TileSprites) tileSprites.get(randomTile)).getColor()));
+			}
+			
 		}
 
 		sprites.addAll(tileSprites);
@@ -140,8 +142,8 @@ public class LevelOneUniverse implements Universe {
 		
 		boolean returnValue = true;
 		
-		for (DisplayableSprite tile : sprites) {
-			if (tile instanceof TileSprite) {
+		for (DisplayableSprite sprite : sprites) {
+			if (sprite instanceof TileSprite || sprite instanceof ExceptionalTileSprite || sprite instanceof CoinSprite) {
 				returnValue = false;
 				break;
 			}
@@ -183,7 +185,7 @@ public class LevelOneUniverse implements Universe {
 		
 		
 		disposeSprites();	
-//		System.out.println(this.levelFinished());
+
 		
 	}
 
@@ -198,15 +200,20 @@ public class LevelOneUniverse implements Universe {
 		for (int i = 0; i < sprites.size(); i++) {
 			DisplayableSprite sprite = sprites.get(i);
     		if (sprite.getDispose() == true) {
-    			if (sprite instanceof TileSprite) {
+    			if (sprite instanceof TileSprite || sprite instanceof ExceptionalTileSprite) {
     				score += 20;
     			}
     			if (sprite instanceof ExceptionalTileSprite){
-    				coinSprite = new CoinSprite(sprite.getCenterX(), sprite.getCenterY());
-    				sprites.add(coinSprite);
+//    				coinSprite = new CoinSprite(sprite.getCenterX(), sprite.getCenterY());
+//    				sprites.add(coinSprite);
+    				bulletSprite = new BulletSprite(sprite.getCenterX(), sprite.getCenterY());
+    				sprites.add(bulletSprite);
     			}
     			if (sprite instanceof CoinSprite) {
     				score+=10;
+    			}
+    			if (sprite instanceof BulletSprite && lives != 0) {
+    				lives-=1;
     			}
     			disposalList.add(sprite);
     		}
