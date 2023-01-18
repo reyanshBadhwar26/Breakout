@@ -12,12 +12,12 @@ public class PaddleSprite implements DisplayableSprite {
 	private double centerY = 0;
 	private double width = 0;
 	private double height = 0;
-	private boolean dispose = false;	
+	private boolean dispose = false;
 
 	private final double VELOCITY = 500;
 
 	public PaddleSprite(double centerX, double centerY) {
-		
+
 		this.centerX = centerX;
 		this.centerY = centerY;
 		if (paddle == null) {
@@ -25,14 +25,13 @@ public class PaddleSprite implements DisplayableSprite {
 				paddle = ImageIO.read(new File("res/paddle1.png"));
 				this.height = this.paddle.getHeight(null);
 				this.width = this.paddle.getWidth(null);
-			}
-			catch (IOException e) {
+			} catch (IOException e) {
 				System.out.println(e.toString());
-			}		
-		}	
-		
+			}
+		}
+
 	}
-	
+
 	@Override
 	public Image getImage() {
 		return paddle;
@@ -95,63 +94,58 @@ public class PaddleSprite implements DisplayableSprite {
 
 	@Override
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
-		
+
 		double velocityX = 0;
 		double velocityY = 0;
-		
+
 		double deltaX = actual_delta_time * 0.001 * velocityX;
 		double deltaY = actual_delta_time * 0.001 * velocityY;
-		
-		
+
 		if (checkCollisionWithBarrier(universe.getSprites(), deltaX, deltaY) == false) {
-			//LEFT ARROW
+			// LEFT ARROW
 			if (keyboard.keyDown(37)) {
 				velocityX = -VELOCITY;
 			}
-			//RIGHT ARROW
+			// RIGHT ARROW
 			if (keyboard.keyDown(39)) {
 				velocityX += VELOCITY;
 			}
 		}
-		
+
 		else {
 			if (this.centerX < 425 && keyboard.keyDown(39)) {
 				velocityX += VELOCITY;
-			}		
-			if (this.centerX  > 425 && keyboard.keyDown(37)) {
+			}
+			if (this.centerX > 425 && keyboard.keyDown(37)) {
 				velocityX = -VELOCITY;
 			}
 		}
 
-
-
-        this.centerX += actual_delta_time * 0.001 * velocityX;
-    	this.centerY += actual_delta_time * 0.001 * velocityY;
+		this.centerX += actual_delta_time * 0.001 * velocityX;
+		this.centerY += actual_delta_time * 0.001 * velocityY;
 
 	}
-	
+
 	private boolean checkCollisionWithBarrier(ArrayList<DisplayableSprite> sprites, double deltaX, double deltaY) {
 
-		//deltaX and deltaY represent the potential change in position
+		// deltaX and deltaY represent the potential change in position
 		boolean colliding = false;
 
 		for (DisplayableSprite sprite : sprites) {
 			if (sprite instanceof BarrierSprite) {
-				if (CollisionDetection.overlaps(this.getMinX() + deltaX, this.getMinY() + deltaY, 
-						this.getMaxX()  + deltaX, this.getMaxY() + deltaY, 
-						sprite.getMinX(),sprite.getMinY(), 
+				if (CollisionDetection.overlaps(this.getMinX() + deltaX, this.getMinY() + deltaY,
+						this.getMaxX() + deltaX, this.getMaxY() + deltaY, sprite.getMinX(), sprite.getMinY(),
 						sprite.getMaxX(), sprite.getMaxY())) {
 					colliding = true;
-					break;					
+					break;
 				}
 			}
-		}		
-		return colliding;		
+		}
+		return colliding;
 	}
 
-	
 	public double getVelocityX() {
 		return 0;
 	}
-	
+
 }

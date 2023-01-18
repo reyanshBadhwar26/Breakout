@@ -77,7 +77,7 @@ public class LevelOneUniverse implements Universe {
 
 		}
 
-		//sprites.addAll(tileSprites);
+		sprites.addAll(tileSprites);
 
 	}
 
@@ -154,7 +154,7 @@ public class LevelOneUniverse implements Universe {
 	}
 
 	public void update(KeyboardInput keyboard, long actual_delta_time) {
-		
+
 		for (int i = 0; i < sprites.size(); i++) {
 			DisplayableSprite sprite = sprites.get(i);
 			sprite.update(this, keyboard, actual_delta_time);

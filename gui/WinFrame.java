@@ -25,10 +25,10 @@ public class WinFrame extends JDialog {
 	 * Create the frame.
 	 */
 	public WinFrame(int score, String message) {
-		
+
 		this.setUndecorated(true);
 		this.setBackground(Color.BLUE);
-		
+
 		setType(Type.POPUP);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -38,14 +38,14 @@ public class WinFrame extends JDialog {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblTitle = new JLabel("You cleared all tiles!");
 		lblTitle.setForeground(Color.ORANGE);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setFont(new Font("Stencil", Font.ITALIC, 24));
 		lblTitle.setBounds(0, 32, 369, 61);
 		contentPane.add(lblTitle);
-		
+
 		JLabel lblPickup = new JLabel(String.format("Score:%2d", score));
 		lblPickup.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPickup.setForeground(Color.ORANGE);
@@ -53,7 +53,6 @@ public class WinFrame extends JDialog {
 		lblPickup.setBounds(0, 87, 369, 61);
 		contentPane.add(lblPickup);
 
-		
 		JButton btnPlay = new JButton(message);
 		btnPlay.addMouseListener(new MouseAdapter() {
 			@Override
@@ -69,7 +68,7 @@ public class WinFrame extends JDialog {
 		btnPlay.setBounds(114, 185, 145, 41);
 		contentPane.add(btnPlay);
 	}
-	
+
 	protected void btnPlay_mouseClicked(MouseEvent e) {
 		this.setVisible(false);
 	}

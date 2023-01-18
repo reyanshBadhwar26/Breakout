@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public class CoinSprite implements DisplayableSprite{
+public class CoinSprite implements DisplayableSprite {
 
 	private Image coin;
 	private double centerX = 0;
@@ -15,22 +15,22 @@ public class CoinSprite implements DisplayableSprite{
 	private boolean dispose = false;
 	ArrayList<DisplayableSprite> allObjectsWithoutTiles = new ArrayList<DisplayableSprite>();
 	private boolean collisionWithPaddle = false;
-	
+
 	public CoinSprite(double centerX, double centerY) {
 		this.centerX = centerX;
 		this.centerY = centerY;
-		
+
 		if (coin == null) {
 			try {
 				coin = ImageIO.read(new File("res/coin.png"));
 				this.height = 30;
 				this.width = 30;
-			}
-			catch (IOException e) {
+			} catch (IOException e) {
 				System.out.println(e.toString());
-			}		
-		}	
+			}
+		}
 	}
+
 	@Override
 	public Image getImage() {
 		return coin;
@@ -90,7 +90,7 @@ public class CoinSprite implements DisplayableSprite{
 	public void setDispose(boolean dispose) {
 		this.dispose = dispose;
 	}
-	
+
 	public boolean getCollisionWithPaddle() {
 		return collisionWithPaddle;
 	}
@@ -98,30 +98,27 @@ public class CoinSprite implements DisplayableSprite{
 	private void checkCollisionWithBarrier(ArrayList<DisplayableSprite> sprites) {
 
 		for (DisplayableSprite sprite : sprites) {
-				if (CollisionDetection.overlaps(this.getMinX(), this.getMinY(), 
-						this.getMaxX(), this.getMaxY(), 
-						sprite.getMinX(),sprite.getMinY(), 
-						sprite.getMaxX(), sprite.getMaxY())) {
-					if (sprite instanceof PaddleSprite) {
-						collisionWithPaddle = true;
-					}
-					this.setDispose(true);
-					break;					
+			if (CollisionDetection.overlaps(this.getMinX(), this.getMinY(), this.getMaxX(), this.getMaxY(),
+					sprite.getMinX(), sprite.getMinY(), sprite.getMaxX(), sprite.getMaxY())) {
+				if (sprite instanceof PaddleSprite) {
+					collisionWithPaddle = true;
 				}
-			}	
+				this.setDispose(true);
+				break;
+			}
+		}
 	}
-	
-	
+
 	@Override
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
-		
+
 		double velocityY = 0;
 		velocityY = velocityY + 600 * 0.02 * actual_delta_time;
 		this.centerY += actual_delta_time * 0.001 * velocityY;
-		
+
 		allObjectsWithoutTiles.addAll(universe.getSpritesWithoutTiles());
 		allObjectsWithoutTiles.addAll(universe.getLowerBarriers());
-		
+
 		checkCollisionWithBarrier(allObjectsWithoutTiles);
 	}
 

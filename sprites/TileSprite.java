@@ -14,25 +14,25 @@ public class TileSprite implements DisplayableSprite, TileSprites {
 	private boolean dispose = false;
 	private String color = "";
 	private String tileName = "";
-	
+
 	public TileSprite(double centerX, double centerY, String tileName, String color) {
 		this.centerX = centerX;
 		this.centerY = centerY;
-		
+
 		if (tile == null) {
 			try {
 				tile = ImageIO.read(new File(tileName));
 				this.height = 30;
 				this.width = 75;
-			}
-			catch (IOException e) {
+			} catch (IOException e) {
 				System.out.println(e.toString());
-			}		
+			}
 		}
-		
+
 		this.tileName = tileName;
 		this.color = color;
 	}
+
 	@Override
 	public Image getImage() {
 		return tile;
@@ -92,23 +92,20 @@ public class TileSprite implements DisplayableSprite, TileSprites {
 	public void setDispose(boolean dispose) {
 		this.dispose = dispose;
 	}
-	
 
 	@Override
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
-		
+
 	}
-	
+
 	@Override
 	public String getColor() {
 		return color;
 	}
-	
+
 	@Override
 	public String getTileName() {
 		return tileName;
 	}
-	
-	
 
 }
