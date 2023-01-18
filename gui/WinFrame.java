@@ -24,7 +24,7 @@ public class WinFrame extends JDialog {
 	/**
 	 * Create the frame.
 	 */
-	public WinFrame(int score) {
+	public WinFrame(int score, String message) {
 		
 		this.setUndecorated(true);
 		this.setBackground(Color.BLUE);
@@ -54,7 +54,7 @@ public class WinFrame extends JDialog {
 		contentPane.add(lblPickup);
 
 		
-		JButton btnPlay = new JButton("NEXT LEVEL");
+		JButton btnPlay = new JButton(message);
 		btnPlay.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

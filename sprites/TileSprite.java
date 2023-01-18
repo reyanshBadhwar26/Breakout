@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class TileSprite implements DisplayableSprite, TileSprites{
+public class TileSprite implements DisplayableSprite, TileSprites {
 
 	private Image tile;
 	private double centerX = 0;
@@ -13,8 +13,9 @@ public class TileSprite implements DisplayableSprite, TileSprites{
 	private double height = 0;
 	private boolean dispose = false;
 	private String color = "";
+	private String tileName = "";
 	
-	public TileSprite(double centerX, double centerY, String tileName) {
+	public TileSprite(double centerX, double centerY, String tileName, String color) {
 		this.centerX = centerX;
 		this.centerY = centerY;
 		
@@ -29,7 +30,8 @@ public class TileSprite implements DisplayableSprite, TileSprites{
 			}		
 		}
 		
-		color = tileName;
+		this.tileName = tileName;
+		this.color = color;
 	}
 	@Override
 	public Image getImage() {
@@ -91,13 +93,22 @@ public class TileSprite implements DisplayableSprite, TileSprites{
 		this.dispose = dispose;
 	}
 	
-	public String getColor() {
-		return color;
-	}
 
 	@Override
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
 		
 	}
+	
+	@Override
+	public String getColor() {
+		return color;
+	}
+	
+	@Override
+	public String getTileName() {
+		return tileName;
+	}
+	
+	
 
 }

@@ -7,14 +7,20 @@ import javax.imageio.ImageIO;
 public class ExceptionalTileSprite implements DisplayableSprite{
 
 	private Image tile;
+	private Image brokenBlueTile;
+	private Image brokenGreenTile;
+	private Image brokenOrangeTile;
+	private Image brokenPinkTile;
 	private double centerX = 0;
 	private double centerY = 0;
 	private double width = 0;
 	private double height = 0;
 	private boolean dispose = false;	
 	private int lives = 2;
+	private String color = "";
+	private String type = "";
 	
-	public ExceptionalTileSprite(double centerX, double centerY, String tileName) {
+	public ExceptionalTileSprite(double centerX, double centerY, String tileName, String color, String type) {
 		this.centerX = centerX;
 		this.centerY = centerY;
 		
@@ -28,10 +34,77 @@ public class ExceptionalTileSprite implements DisplayableSprite{
 				System.out.println(e.toString());
 			}		
 		}	
+		
+		if (brokenBlueTile == null) {
+			try {
+				brokenBlueTile = ImageIO.read(new File("res/brokenBlueTile.png"));
+				this.height = 30;
+				this.width = 75;
+			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}		
+		}
+		
+		if (brokenGreenTile == null) {
+			try {
+				brokenGreenTile = ImageIO.read(new File("res/brokenGreenTile.png"));
+				this.height = 30;
+				this.width = 75;
+			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}		
+		}
+		
+		if (brokenOrangeTile == null) {
+			try {
+				brokenOrangeTile = ImageIO.read(new File("res/brokenOrangeTile.png"));
+				this.height = 30;
+				this.width = 75;
+			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}		
+		}
+		
+		if (brokenPinkTile == null) {
+			try {
+				brokenPinkTile = ImageIO.read(new File("res/brokenPinkTile.png"));
+				this.height = 30;
+				this.width = 75;
+			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}		
+		}
+		
+		this.color = color;
+		this.type = type;
+		
 	}
 	@Override
 	public Image getImage() {
-		return tile;
+		
+		Image returnImage = null;
+		
+		if (lives < 2 && color.equals("blue")) {
+			returnImage = brokenBlueTile;
+		}
+		else if (lives < 2 && color.equals("green")) {
+			returnImage = brokenGreenTile;
+		}
+		else if (lives < 2 && color.equals("orange")) {
+			returnImage = brokenOrangeTile;
+		}
+		else if (lives < 2 && color.equals("pink")) {
+			returnImage = brokenPinkTile;
+		}
+		else {
+			returnImage = tile;
+		}
+		
+		return returnImage;
 	}
 
 	@Override
@@ -95,6 +168,10 @@ public class ExceptionalTileSprite implements DisplayableSprite{
 
 	public int getLives() {
 		return lives;
+	}
+	
+	public String getType() {
+		return type;
 	}
 
 	@Override

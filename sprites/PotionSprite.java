@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public class CoinSprite implements DisplayableSprite{
+public class PotionSprite implements DisplayableSprite{
 
-	private Image coin;
+	private Image potion;
 	private double centerX = 0;
 	private double centerY = 0;
 	private double width = 0;
@@ -16,13 +16,13 @@ public class CoinSprite implements DisplayableSprite{
 	ArrayList<DisplayableSprite> allObjectsWithoutTiles = new ArrayList<DisplayableSprite>();
 	private boolean collisionWithPaddle = false;
 	
-	public CoinSprite(double centerX, double centerY) {
+	public PotionSprite(double centerX, double centerY) {
 		this.centerX = centerX;
 		this.centerY = centerY;
 		
-		if (coin == null) {
+		if (potion == null) {
 			try {
-				coin = ImageIO.read(new File("res/coin.png"));
+				potion = ImageIO.read(new File("res/potion.png"));
 				this.height = 30;
 				this.width = 30;
 			}
@@ -33,7 +33,7 @@ public class CoinSprite implements DisplayableSprite{
 	}
 	@Override
 	public Image getImage() {
-		return coin;
+		return potion;
 	}
 
 	@Override

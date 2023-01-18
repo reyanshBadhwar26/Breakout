@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class LevelTwoUniverse implements Universe {
+public class LevelThreeUniverse implements Universe {
 
 	private boolean complete = false;	
 	private DisplayableSprite player1 = null;
@@ -12,6 +12,8 @@ public class LevelTwoUniverse implements Universe {
 	private DisplayableSprite orangeTile = null;
 	private DisplayableSprite coinSprite = null;
 	private DisplayableSprite bulletSprite = null;
+	private DisplayableSprite ball2 = null;
+	private DisplayableSprite potionSprite = null;
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
 	private ArrayList<Background> backgrounds = new ArrayList<Background>();
 	private ArrayList<DisplayableSprite> spritesWithoutTile = new ArrayList<DisplayableSprite>();
@@ -28,14 +30,14 @@ public class LevelTwoUniverse implements Universe {
 	
 	private ArrayList<DisplayableSprite> disposalList = new ArrayList<DisplayableSprite>();
 	
-	public LevelTwoUniverse () {
+	public LevelThreeUniverse () {
 
 		this.setXCenter(0);
 		this.setYCenter(0);
 		player1 = new PaddleSprite(425,550);
 		sprites.add(player1);
 		spritesWithoutTile.add(player1);
-		ball = new BallSprite(425, 530, 270, 270, "res/ball.png");
+		ball = new BallSprite(425, 530, 250, 250, "res/ball.png");
 		sprites.add(ball);
 	
 		background = new AllLevelsBackground();
@@ -69,11 +71,24 @@ public class LevelTwoUniverse implements Universe {
 			tileSprites.add(greenTile);
 		}
 		
-		for (double i = TILE_START_POINT; i <= TILE_STOP_POINT; i = i+TILE_WIDTH) {
-			blueTile = new TileSprite(i, 240, "res/blueTile.png", "blue");
+		for (double i = TILE_START_POINT+(TILE_WIDTH*2); i <= TILE_STOP_POINT-(TILE_WIDTH*2); i = i+TILE_WIDTH) {
+			pinkTile = new TileSprite(i, 240, "res/pinkTile.png", "pink");
+			tileSprites.add(pinkTile);
+		}
+		
+		for (double i = TILE_START_POINT+(TILE_WIDTH*3); i <= TILE_STOP_POINT-(TILE_WIDTH*3); i = i+TILE_WIDTH) {
+			blueTile = new TileSprite(i, 270, "res/blueTile.png", "blue");
 			tileSprites.add(blueTile);
 		}
 		
+		for (double i = TILE_START_POINT+(TILE_WIDTH*4); i <= TILE_STOP_POINT-(TILE_WIDTH*4); i = i+TILE_WIDTH) {
+			orangeTile = new TileSprite(i, 300, "res/orangeTile.png", "orange");
+			tileSprites.add(orangeTile);
+		}
+		
+		pinkTile = new TileSprite(TILE_START_POINT+(TILE_WIDTH*5)-37.5, 330, "res/pinkTile.png" , "pink");
+		tileSprites.add(pinkTile);
+
 		for (int i = 0; i <= 5; i++) {
 			int randomTile = rand.nextInt(tileSprites.size());
 			if (tileSprites.get(randomTile) instanceof ExceptionalTileSprite == false) {
@@ -93,6 +108,20 @@ public class LevelTwoUniverse implements Universe {
 								tileSprites.get(randomTile).getCenterY(),
 								((TileSprites) tileSprites.get(randomTile)).getTileName(),
 								((TileSprites) tileSprites.get(randomTile)).getColor(), "bulletTile"));
+			}
+		}
+		
+		for (int i = 0; i <= 2; i++) {
+			int randomTile = rand.nextInt(tileSprites.size());
+			if (tileSprites.get(randomTile) instanceof ExceptionalTileSprite == false) {
+				tileSprites.set(randomTile,
+						new ExceptionalTileSprite(tileSprites.get(randomTile).getCenterX(),
+								tileSprites.get(randomTile).getCenterY(),
+								((TileSprites) tileSprites.get(randomTile)).getTileName(),
+								((TileSprites) tileSprites.get(randomTile)).getColor(), "secondBallTile"));
+			}
+			else {
+				i--;
 			}
 		}
 		
@@ -185,7 +214,7 @@ public class LevelTwoUniverse implements Universe {
 			}
 			
 			if (lives-1 >= 0) {
-				ball = new BallSprite(player1.getCenterX(), player1.getCenterY()-50, 275, 275, "res/ball.png");
+				ball = new BallSprite(player1.getCenterX(), player1.getCenterY()-70, 275, 275, "res/ball.png");
 				sprites.add(ball);
 			}
 		}
@@ -216,10 +245,20 @@ public class LevelTwoUniverse implements Universe {
 	    				bulletSprite = new BulletSprite(sprite.getCenterX(), sprite.getCenterY());
 	    				sprites.add(bulletSprite);
 					}
+					if (((ExceptionalTileSprite) sprite).getType().equals("secondBallTile")) {
+						potionSprite = new PotionSprite(sprite.getCenterX(), sprite.getCenterY());
+						sprites.add(potionSprite);
+					}
 				}
 				if (sprite instanceof CoinSprite) {
 					if (((CoinSprite) sprite).getCollisionWithPaddle()) {
 						score += 10;
+					}
+				}
+				if (sprite instanceof PotionSprite) {
+					if (((PotionSprite) sprite).getCollisionWithPaddle()) {
+						ball2 = new BallSprite(player1.getCenterX(), player1.getCenterY()-80, 200, 200, "res/orangeBall.png");
+						sprites.add(ball2);
 					}
 				}
 				if (sprite instanceof BulletSprite && lives != 0) {

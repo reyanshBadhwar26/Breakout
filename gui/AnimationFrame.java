@@ -191,7 +191,7 @@ public class AnimationFrame extends JFrame {
 			}
 			
 			// main game loop
-			while (stop == false && universe.isComplete() == false) {
+			while (stop == false && universe != null) {
 
 				//adapted from http://www.java-gaming.org/index.php?topic=24220.0
 				last_refresh_time = System.currentTimeMillis();
@@ -248,7 +248,14 @@ public class AnimationFrame extends JFrame {
 				this.repaint();
 				
 				if (universe.levelFinished() == true) {
-					levelFinished = new WinFrame(universe.getScore());
+					
+					if (universeLevel == 3) {
+						levelFinished = new WinFrame(universe.getScore(), "FINISH GAME");
+					}
+					else {
+						levelFinished = new WinFrame(universe.getScore(), "NEXT LEVEL");
+					}
+					
 					levelFinished.setLocationRelativeTo(this);
 					levelFinished.setModalityType(ModalityType.APPLICATION_MODAL);
 					levelFinished.setVisible(true);
@@ -256,15 +263,17 @@ public class AnimationFrame extends JFrame {
 					levelFinished.dispose();
 					
 					universe = animation.getNextUniverse();
-					sprites = universe.getSprites();
-					player1 = universe.getPlayer1();
-					backgrounds = universe.getBackgrounds();
-					centreOnPlayer = universe.centerOnPlayer();
-					this.scale = universe.getScale();
-					this.logicalCenterX = universe.getXCenter();
-					this.logicalCenterY = universe.getYCenter();
-					keyboard.poll();
-					universeLevel++;
+					if (universe != null) {
+						sprites = universe.getSprites();
+						player1 = universe.getPlayer1();
+						backgrounds = universe.getBackgrounds();
+						centreOnPlayer = universe.centerOnPlayer();
+						this.scale = universe.getScale();
+						this.logicalCenterX = universe.getXCenter();
+						this.logicalCenterY = universe.getYCenter();
+						keyboard.poll();
+						universeLevel++;
+					}
 				}
 			}
 		}

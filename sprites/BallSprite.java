@@ -10,21 +10,21 @@ public class BallSprite implements DisplayableSprite{
 	private Image ball;
 	private double centerX = 0;
 	private double centerY = 0;
-	private double width = 40;
-	private double height = 40;
+	private double width = 20;
+	private double height = 20;
 	private boolean dispose = false;
 
 	//PIXELS PER SECOND PER SECOND
 	private double accelerationX = 0;
 	private double accelerationY = 0;		
-	private double velocityX = 300;
-	private double velocityY = 300;
+	private double velocityX = 0;
+	private double velocityY = 0;
 	
 	//required for advanced collision detection
 	private CollisionDetection collisionDetection;
 	private VirtualSprite virtual = new VirtualSprite();
 
-	public BallSprite(double centerX, double centerY, double velocityX, double velocityY) {
+	public BallSprite(double centerX, double centerY, double velocityX, double velocityY, String ballName) {
 		
 		this.centerX = centerX;
 		this.centerY = centerY;
@@ -36,7 +36,7 @@ public class BallSprite implements DisplayableSprite{
 
 		if (ball == null) {
 			try {
-				ball = ImageIO.read(new File("res/ball.png"));
+				ball = ImageIO.read(new File(ballName));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -191,7 +191,7 @@ public class BallSprite implements DisplayableSprite{
 		this.centerX = virtual.getCenterX();
 		this.centerY = virtual.getCenterY();
 		this.velocityX = virtual.getVelocityX();
-		this.velocityY = virtual.getVelocityY() - 3;			
+		this.velocityY = virtual.getVelocityY();			
 		this.velocityX = this.velocityX + accelerationX * 0.01 * actual_delta_time;
 		this.velocityY = this.velocityY + accelerationY * 0.01 * actual_delta_time;
 
